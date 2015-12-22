@@ -75,7 +75,10 @@ def _print_stanfit(fit, pars=None, probs=(0.025, 0.25, 0.5, 0.75, 0.975), digits
             "For each parameter, n_eff is a crude measure of effective sample size,\n"\
             "and Rhat is the potential scale reduction factor on split chains (at \n"\
             "convergence, Rhat=1)."
-        sampler = fit.sim['samples'][0]['args']['sampler_t']
+        try:
+            sampler = fit.sim['samples'][0]['args']['sampler_t']
+        except KeyError:
+            sampler = "ADVI"
         date = fit.date.strftime('%c')  # %c is locale's representation
         footer = footer.format(sampler, date)
         s = _summary(fit, pars, probs)
