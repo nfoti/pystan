@@ -865,11 +865,11 @@ class StanModel:
 
         # _organize_inits strips out lp__ (RStan does it in this method)
         # TODO GRAB THE INITIAL SAPMLES HERE
-        inits_used = pystan.misc._organize_inits([s.['inits'] for s in samples], m_pars, p_dims)
+        inits_used = pystan.misc._organize_inits([s['inits'] for s in samples], m_pars, p_dims)
 
         random_state = np.random.RandomState(stan_args['seed'])
         chains = 1
-        output_samples = int(stan_args['ctrl']['output_samples'])
+        output_samples = int(stan_args['ctrl']['variational']['output_samples'])
         perm_lst = [random_state.permutation(output_samples) for _ in range(chains)]
         fnames_oi = fit._get_param_fnames_oi()
         n_flatnames = len(fnames_oi)
